@@ -1,5 +1,5 @@
 # Structural_Bioinformatics
-This repository contains projects relating to determining structure of protiens using current bioinformatical techniques.
+This repository contains projects relating protein structure prediction using current bioinformatical techniques.
 
 <ins>Index:</ins>
 1. **Comparative Homology Modeling**
