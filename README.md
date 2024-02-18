@@ -100,7 +100,7 @@ Run Prosa from the command line and use the Prosa console to execute commands.
 ```
 execute session1.cmd
 ```
-*The following cmd files have been obtained form the Prosa manual, see Manual_prosa2003.pdf*
+*The following cmd files have been obtained form the Prosa manual, see the [manual](prosa/Manual_prosa2003.pdf)*
 
 **session1.cmd:** Read PDB Files and Calculate and Visualise the Energies\
 ```
