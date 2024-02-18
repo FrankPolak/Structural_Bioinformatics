@@ -15,10 +15,11 @@ class MyModel(automodel):
         rsr.add(secondary_structure.alpha(self.residue_range('251:A', '271:A'))) # define the atom numbers of the helix
 
 a = MyModel(env,
-              alnfile  = 'alignment3.pir', # alignment filename
-              knowns   = ('1mee'),     # codes of the templates
-              sequence = 'P11018')               # code of the target
+              alnfile  = 'alignment3.pir',     # alignment filename
+              knowns   = ('1mee'),             # codes of the templates
+              sequence = 'P11018')             # code of the target
+
 a.starting_model= 9                 # index of the first model
-a.ending_model  = 10                 # index of the last model
-                                    # (determines how many models to calculate)
-a.make()                            # do the actual homology modeling
+a.ending_model  = 10                # index of the last model
+
+a.make()                            # run homology modeling
