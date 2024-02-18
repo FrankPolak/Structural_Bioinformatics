@@ -9,10 +9,11 @@ env = environ()  # create a new MODELLER environment to build this model in
 env.io.atom_files_directory = ['.', '../atom_files']
 
 a = automodel(env,
-              alnfile  = 'P11018_1scjA_1gciA.pir', # alignment filename
+              alnfile  = 'alignment.pir',        # alignment filename
               knowns   = ('1scjA', '1gciA'),     # codes of the templates
               sequence = 'P11018')               # code of the target
+
 a.starting_model= 1                 # index of the first model
 a.ending_model  = 2                 # index of the last model
                                     # (determines how many models to calculate)
-a.make()                            # do the actual homology modeling
+a.make()                            # run homology modeling
