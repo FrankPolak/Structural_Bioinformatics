@@ -5,6 +5,7 @@ This repository contains projects relating to determining structure of protiens 
 1. **Comparative Homology Modeling**
 2. **Macro-complex Modeling and Restrictions**
 3. **Loop Modeling, Refinement, and Assessment**
+4. **Protein Structure Quality Assessment using Prosa**
 
 <hr>
 
@@ -89,6 +90,29 @@ How to deal with non-regular structures between two regular secondary structures
 **See https://salilab.org/modeller/manual/ for more information.**
 
 <hr>
+
+### 4. Protein Structure Quality Assessment using Prosa
+By analysing protein structure databases we can determine the probability of two residues being in close proximity. The frequency of two residues in close contact can be interpreted as probability and, hence, the inverse of Boltzmann's law can be applied to calculate energies.\
+Prosa is a programme that allows us to score protein structures by their energies.\
+**NB. This appraoch is only valid for soluable globular proteins.**
+
+Run Prosa from the command line and use the Prosa console to execute commands.
+```
+execute session1.cmd
+```
+*The following cmd files have been obtained form the Prosa manual, see Manual_prosa2003.pdf*
+
+**session1.cmd:** Read PDB Files and Calculate and Visualise the Energies\
+**session2.cmd:** Compare Energies\
+**session4a.cmd:** Shift Graph to Compare Sequences of Different Lengths\
+**session4b.cmd:** Calculate Z-Scores\
+**session5.cmd:** Use Cα and Cβ Potentials\
+**session6.cmd:** Use Only Cα Potentials\
+**session7.cmd:** Analyse Mutant Structures without Generating New Models\
+**session8.cmd:** Compare Stability of Protein Regions using Mutability\
+
+
+
 
 
 
