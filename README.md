@@ -6,6 +6,8 @@ This repository contains projects relating to determining structure of protiens 
 2. **Macro-complex Modeling and Restrictions**
 3. **Loop Modeling, Refinement, and Assessment**
 
+<hr>
+
 ### 1. Comparative Homology Modeling
 The frist step is to create a model by comparing the target sequence to the structure of its homologs. The steps for this are as follows and can be executed on the command line, as seen in the script.sh file.\
 1) Blast Search for Homologs (Templates)
@@ -22,6 +24,8 @@ The frist step is to create a model by comparing the target sequence to the stru
 8) Visualise using Chimera
 9) Adjust the Alignment and Repeat Steps 6 and 7\
    *change alnfile parameter to the new alignment and increment a.starting_model and a.ending_model.*
+
+<hr>
 
 ### 2. Macro-complex Modeling and Restrictions
 How to model a protein complex (i.e., a protein with more than one chain).
@@ -50,6 +54,8 @@ How to model a protein complex (i.e., a protein with more than one chain).
    Use the new MyModel class instead of automodel. Run.
 5) Inspect again using Chimera
    Sometimes when forcing a helix the programme can place it in the wrong configuration
+
+<hr>
 
 ### 3. Loop Modeling, Refinement, and Assessment
 How to deal with non-regular structures between two regular secondary structures and variable regions. *Ab initio* modeling.
@@ -81,6 +87,8 @@ How to deal with non-regular structures between two regular secondary structures
    *DOPE is calculating the energy, so the lower the score the better.*
 
 **See https://salilab.org/modeller/manual/ for more information.**
+
+<hr>
 
 
 
