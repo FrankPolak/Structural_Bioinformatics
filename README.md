@@ -2,8 +2,8 @@
 This repository contains projects relating to determining structure of protiens using current bioinformatical techniques.
 
 <ins>Index:</ins>
-1. **Comparative Homology Modeling**
-2. **Macro-complex Modeling and Restrictions**
+1. [**Comparative Homology Modeling**](#1.-Comparative-Homology-Modeling)
+2. [**Macro-complex Modeling and Restrictions**](#2.-Macro-complex-Modeling-and-Restrictions)
 3. **Loop Modeling, Refinement, and Assessment**
 4. **Protein Structure Quality Assessment using Prosa**
 
