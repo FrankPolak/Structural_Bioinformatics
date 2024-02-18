@@ -103,12 +103,56 @@ execute session1.cmd
 *The following cmd files have been obtained form the Prosa manual, see Manual_prosa2003.pdf*
 
 **session1.cmd:** Read PDB Files and Calculate and Visualise the Energies\
+```
+read pdb pdb_file.ent obj1  # obj1 is the object name
+winsize obj1 50  # smooth out the graph by taking the average in a window size of 50 residues
+draw * obj1 1    # draw all energies for obj1
+draw * * 0       # clear the graph
+draw pair * 1    # for comparing pair energies of two objects
+
+# Energies:
+# pair: amino acid contacts
+# surf: contact with solvent
+# comb: pair + β surf
+
+export plot myplot  # creates a myplot.ps file
+```
+```bash
+ps2pdf myplot.ps    # converts ps file to a pdf graph
+```
 **session2.cmd:** Compare Energies\
 **session4a.cmd:** Shift Graph to Compare Sequences of Different Lengths\
+```
+shift obj1 3  # shifts obj1 by 3 residues
+```
 **session4b.cmd:** Calculate Z-Scores\
+```
+zscore obj1 z-results  # creates a z-results.slp file
+```
 **session5.cmd:** Use Cα and Cβ Potentials\
+```
+# Load Potentials:
+pair potential $PROSA_BASE/pII3.0.pair-cb pcb
+surface potential $PROSA_BASE/pII3.0.surf-cb scb
+pair potential $PROSA_BASE/pII3.0.pair-ca pca
+surface potential $PROSA_BASE/pII3.0.surf-ca sca
+
+# Specify which potentials to use:
+use potential aat pca sca pcb scb
+use potential spa pca sca pcb scb
+```
 **session6.cmd:** Use Only Cα Potentials\
 **session7.cmd:** Analyse Mutant Structures without Generating New Models\
+```
+# Substitute amino acids:
+mutate sequence wt 46 P mutant1
+mutate sequence wt 5 E mutant2
+mutate sequence mutant2 32 P mutant3
+mutate sequence mutant3 47 L mutant4
+```
+NB. A lower peak for the mutant indicates a <ins>stabilising mutation.</ins>
+
+
 **session8.cmd:** Compare Stability of Protein Regions using Mutability\
 
 
