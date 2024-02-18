@@ -130,7 +130,7 @@ shift obj1 3  # shifts obj1 by 3 residues
 zscore obj1 z-results  # creates a z-results.slp file
 ```
 Z-scores relate to the protein sequence length as such:\
-![Prosa Z-Score](Prosa-z-score.png)\
+![Prosa Z-Score](prosa/Prosa-z-score.png)\
 **session5.cmd:** Use Cα and Cβ Potentials\
 ```
 # Load Potentials:
