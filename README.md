@@ -163,6 +163,44 @@ NB. A lower peak for the mutant indicates a <ins>stabilising mutation.</ins>
 Prosa can be used to calculate energy profiles of structure models. For instance, Prosa can help identify peaks of energy, in which case a model will have to be modified.\
 To understand why peaks of energy occur in the model, we must first analyse the secondary structure. This can be done in DSSP, a program that calculates the hydrogen bonds. We can then use Psi-pred, a deep learning-base programme for predicting secondary structure based on the sequence of the protein, to predict *ab initio* the secondary structure. The prediction from Psi-pred will act as a guide for determining the adjustments that can be made to our model in regions that display high peaks of energy in Prosa.
 
+1) Run Prosa
+   ```
+   execute 4_2_Prosa_Evaluation.cm
+   ```
+   Ensure that the alignment is correct. If needed, add:
+   ```
+   shift * 18
+   shift mdlXX -18
+   ```
+2) Run DSSP to create a model.dssp file
+   ```
+   dssp P11018.BL0000XX.pdb model.dssp
+   ```
+3) Create a secondary structure prediction with Psi-pred. This will output two files: P11018.ss2 and P11018.horiz
+   ```
+   psipred P11018.fa
+   psipred.pl P11018.ss2 > psipred.pir
+   aliss.pl model.dssp > dssp.pir
+   cat psipred.pir > compare.pir
+   cat dssp.pir >> compare.pir
+   aconvertMod2.pl -in p -out c < compare.pir > compare.aln
+   ```
+   The resulting compare.aln file will show an aligment file. The P11018.horiz file can be used as reference for the reliability of the prediction (Conf row; 0-9 score corresponding to 0-90% confidence).
+4) Refer back to Prosa to identify the locations of peaks.\
+   Check the compare.aln file within the specified residue range to check where the models differ. Psi-pred can be trusted if high confidence is indicated in the P11018.horiz file.
+5) Adjust the alignment.aln file and convert to pir format
+6) Run Modeller to create a new model based on the modify alignment
+7) Visualise in Prosa\
+   Keep other model objects in order to compare the graphs.
+8) Rank the models based on the Z-score. In Prosa:
+   ```
+   init zscore
+   zscore * z-results
+   ```
+   
+   
+   
+
 
 
 
