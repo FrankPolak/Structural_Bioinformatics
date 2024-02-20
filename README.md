@@ -96,6 +96,8 @@ By analysing protein structure databases we can determine the probability of two
 Prosa is a programme that allows us to score protein structures by their energies.\
 **NB. This appraoch is only valid for soluable globular proteins.**
 
+#### 4.1 Prosa Fundamentals
+
 Run Prosa from the command line and use the Prosa console to execute commands.
 ```
 execute session1.cmd
@@ -156,6 +158,10 @@ NB. A lower peak for the mutant indicates a <ins>stabilising mutation.</ins>
 
 
 **session8.cmd:** Compare Stability of Protein Regions using Mutability\
+
+#### 4.2 Prosa Evaluation and Model Optimisation
+Prosa can be used to calculate energy profiles of structure models. For instance, Prosa can help identify peaks of energy, in which case a model will have to be modified.\
+To understand why peaks of energy occur in the model, we must first analyse the secondary structure. This can be done in DSSP, a program that calculates the hydrogen bonds. We can then use Psi-pred, a deep learning-base programme for predicting secondary structure based on the sequence of the protein, to predict *ab initio* the secondary structure. The prediction from Psi-pred will act as a guide for determining the adjustments that can be made to our model in regions that display high peaks of energy in Prosa.
 
 
 
