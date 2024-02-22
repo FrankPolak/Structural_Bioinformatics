@@ -11,7 +11,7 @@ This repository contains projects relating protein structure prediction using cu
 <hr>
 
 ### 1. Comparative Homology Modeling
-The frist step is to create a model by comparing the target sequence to the structure of its homologs. The steps for this are as follows and can be executed on the command line, as seen in the script.sh file.\
+The frist step is to create a model by comparing the target sequence to the structure of its homologs.
 1) Blast Search for Homologs (Templates)
 2) Homolog selection\
    *From the Blast results select the homologs with the highest E-value. Do not select too many homologs as this will affect the modeller. In this example 3 homologs are used.*
@@ -19,7 +19,7 @@ The frist step is to create a model by comparing the target sequence to the stru
    *If the target does not contain certain chains they can be omitted entirely.*
 4) Prepare an Alignment File and Run Clustal Omgega
 5) Convert the Alignment (.aln file) into PIR format
-6) Run Modeller using Python\
+6) Run Modeller using Python
    ```bash
    modpy.sh python3 modeling1.py
    ```
