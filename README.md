@@ -202,9 +202,9 @@ To understand why peaks of energy occur in the model, we must first analyse the 
 ### 5. Threading
 Threading is an approach for *ab initio* protein structure prediction. Due to the large computational cost of threading, this approach may not be feasible for most personal machines. The programme THREADER can be used for this method.\
 Threader input can be either the protein sequence or its secondary structure. To run threader with secondary structure we need the .horitz file, which can be generated using Psi-pred (as seen in section 4.2).\
-Other online server-base programmes include PHYRE, iTASSER FUGUE, and MODLINK, however, these take a long time to run (often >24 hours).
+Other online server-based programmes include PHYRE, iTASSER, and MODLINK, however, these take a long time to run (often ~24 hours).
 
-<ins>Threader step-by-step</ins>
+<ins>Threader step-by-step:</ins>
 1) Create the mylist.lst restriction list file by searching the $THREADER_DIR for similar protein structures (e.g., proteinases but not proteinase inhibitors)
    ```bash
    grep PROTEINASE $THREADER_DIR/tbd/* | fgrep -v INHIBITOR | cut -d " " -f 2 > mylist.lst
@@ -221,8 +221,12 @@ Other online server-base programmes include PHYRE, iTASSER FUGUE, and MODLINK, h
    ```bash
     $THREADER_DIR/texp/texp -s $THREADER_DIR/texp/weights.dat results.ssout | sort -n -r > results.texp
     ```
-4) Obtain the .ent file for the best ranked template
-5) Run Modeller
+4) Obtain the .ent file for the best ranked template and use it to generate a PIR alignment file with the target (threader.pir)
+5) Run Modeller 
+   ```bash
+   modpy.sh python modeling5_Threader.py > modeling_threader.log
+   ```
+6) Analyse using Prosa
    
    
    
