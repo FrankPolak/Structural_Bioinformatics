@@ -6,6 +6,7 @@ This repository contains projects relating protein structure prediction using cu
 2. **Macro-complex Modeling and Restrictions**
 3. **Loop Modeling, Refinement, and Assessment**
 4. **Protein Structure Quality Assessment using Prosa**
+5. **Threading**
 
 <hr>
 
@@ -197,6 +198,31 @@ To understand why peaks of energy occur in the model, we must first analyse the 
    init zscore
    zscore * z-results
    ```
+
+### 5. Threading
+Threading is an approach for *ab initio* protein structure prediction. Due to the large computational cost of threading, this approach may not be feasible for most personal machines. The programme THREADER can be used for this method.\
+Threader input can be either the protein sequence or its secondary structure. To run threader with secondary structure we need the .horitz file, which can be generated using Psi-pred (as seen in section 4.2).\
+Other online server-base programmes include PHYRE, iTASSER FUGUE, and MODLINK, however, these take a long time to run (often >24 hours).
+
+<ins>Threader step-by-step</ins>
+1) Create the mylist.lst restriction list file by searching the $THREADER_DIR for similar protein structures (e.g., proteinases but not proteinase inhibitors)
+   ```bash
+   grep PROTEINASE $THREADER_DIR/tbd/* | fgrep -v INHIBITOR | cut -d " " -f 2 > mylist.lst
+   ```
+   mylist.lst will contain the codes of the proteins for running Threader
+2) Run Threader
+   ```bash
+    threader -pm -v -j TARGET.horiz results.ssout mylist.lst >& results.sslog
+    # TARGET.horiz can be substituted with TARGET.fasta
+    # mylist.lst is a list of restrictions
+    # results.ssout will contain the ranking of the best folds
+    ```
+3) Evaluate Threader results
+   ```bash
+    $THREADER_DIR/texp/texp -s $THREADER_DIR/texp/weights.dat results.ssout | sort -n -r > results.texp
+    ```
+4) Obtain the .ent file for the best ranked template
+5) Run Modeller
    
    
    
