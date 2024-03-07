@@ -306,6 +306,113 @@ PatchDock for rigid body docking:
    ```
 5) visualise in Chimera
 
+#### 6.2 Energy-based Scoring and Flexible Refinement
+Results from docking programmes (FTDock, ZDOCK, and PatchDock) can be malipulated and re-analysed to apply alternative scoring functions, such as pyDock.\
+Flexible refinement allows us to optimise side-chain positions and re-rank the structures. This can be done using FireDock.
+
+PyDock protocol:
+
+1) Prepare input files (receptor, ligand, reference)
+2) Prepare .ini file (T26.ini)
+   ```
+   [receptor]
+   pdb = prot.pdb
+   mol = A  # original chain ID
+   newmol = A  # new chian ID
+
+   [ligand]
+   pdb = ligand.pdb
+   mol = A
+   newmol = B  # the two new chain IDs must be different!
+   ```
+3) Run pyDock setup
+   ```
+   pyDock3 T26 setup
+
+   # Output files:
+   # -T26_rec.pdb
+   # -T26_lig.pdb
+   ```
+4) Perform docking using ZDOCK
+   ```
+   pyDock3 T26 zdock
+
+   # ZDOCK can also be run separately
+   ```
+5) Transform ZDOCK output to pyDock rot file
+   ```
+   pyDock3 T26 rotzdock
+   ```
+   This will create all possible docking poses, for time-limited analysis, a subset may be used.\
+   In this case, edit the T26.rot file to include just 200 conformations
+6) Score using pyDcok energy function
+   ```bash
+   pyDock3 T26 dockser > dockser.log
+
+   # This process may take hours if a random sample of conformation is not selected
+
+   # Output: T26.ene - conformation scores in order
+   ```
+7) Generate top 10 docking poses
+   ```
+   pyDock3 T26 makePDB 1 10 
+   ```
+8) Visualise in Chimera (comparing to reference structure)
+9) Compute RMSD from docking poses and reference - Change the .ini file as follows and repeat steps 1 to 7
+    ```
+    [receptor]
+    pdb = prot.pdb
+    mol = A
+    newmol = A
+
+    [ligand]
+    pdb = ligand.pdb
+    mol = A
+    newmol = B
+
+    [reference]
+    pdb = ref.pdb
+    recmol = A
+    ligmol = H
+    newrecmol = A
+    newligmol = B
+    ```
+
+Refinement of docking poses using FireDock:
+
+1) Make sure that the input structures are protonated (H atoms are included on each residue)
+2) Create a transformation file from PatchDock output
+   ```bash
+   Firedock/PatchDockOut2Trans.pl out_file1 > ex1.trans
+
+   # To use only top 200 poses:
+   head -n 200 ex1.trans > tmp
+   mv tmp ex1.trans
+   ```
+3) Create a parameter file for FireDock
+   ```bash
+   FireDock/buildFireDockParams.pl prot1.pdb.CHB.pdb prot2.pdb.CHB.pdb U U EI ex1.trans firedock.out 0 50 0.8 1 paramsREF.txt
+
+   # "Coarse" refinement (RISCO, 50 cycles of RBO and radiiScale=0.8), with the option "1" to save the refined conformations to PDB files.
+   ```
+4) Execute the refinement
+   ```bash
+   FireDock/runFireDock.pl paramsREF.txt > firedock.out.log
+
+   # This may take 10-20 minutes
+
+   # Output:
+   # firedock.out.unref (before refinement)
+   # firedock.out.ref (after refinement)
+   ```
+5) Sort the list of refined poses
+   ```bash
+   sort -n -k11 firedock.out.ref > firedock.out.ref_sorted
+
+   # sorted numerically (-n) based on the value in the 11th column (-k11) - "glob", i.e., the global score
+   ```
+6) Visualise in Chimera
+
 
    
 
