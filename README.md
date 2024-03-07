@@ -7,6 +7,7 @@ This repository contains projects relating protein structure prediction using cu
 3. **Loop Modeling, Refinement, and Assessment**
 4. **Protein Structure Quality Assessment using Prosa**
 5. **Threading**
+6. **Docking**
 
 <hr>
 
@@ -227,6 +228,87 @@ Other online server-based programmes include PHYRE, iTASSER, and MODLINK, howeve
    modpy.sh python modeling5_Threader.py > modeling_threader.log
    ```
 6) Analyse using Prosa
+   
+
+### 6. Docking
+A key event that facilitates virtually all cellular processess is the interaction between proteins (PPI) and ligands. Historically, a lock-and-key model was widely accepted as the definitive model for PPI. In the past decades, however, models of induced fit and conformational selection have emerged that serve much better at predicting PPIs.\
+The process of predicting PPIs relies heavily on structure prediction of the protein-protein or protein-ligand complex, and the energy modelling thereof. This approach is referred to as docking.
+
+#### 6.1 Rigid Body Docking
+Rigid body docking uses a geometry-based approach to model PPIs. In Rigid body docking, the 3-dimensional protein and ligand structure from the PDB is transformed into 2-dimensional planes, the correlation of each is analysed to find the optimal binding conformation.\
+Rigid body docking uses the Fast Fourier Transform (FFT) algorithm to accelerate the computation of the interaction energy between the protein and the ligand.\
+Rigid body docking can be carried out as such:
+
+1) Prepare the input files
+   ```bash
+   # Extract atom coordinates
+   cat prot.pdb | grep ATOM > protatom.pdb
+
+   # Rename chain of the second protein to make sure that they are different for subsequent analysis
+   change-pdb-chain-id.perl -pdb prot_B.pdb -old 'A' -new 'B'
+   ```
+2) prepare coordinates of the reference complex
+3) Format atomic coordinates of protein and ligand for ZDOCK (prot_A.pdb -> ref_r.pdb; prot_B.pdb -> ref_l.pdb)
+4) Run ZDOCK
+   ```bash
+   zdock -R ref_r.pdb -L ref_l.pdb -o ref_zdock.out
+   ```
+5) Run FTDock (alternative to ZDOCK)
+   ```bash
+   ftdock -static prot_A.pdb -mobile prot_B.pdb -noelec -calculate_grid 1.2 -angle_step 12 -internal -15 -surface 1.3 -keep 3 -out ref.ftdock
+
+   # grid_size 1.2 (0.875 by default) and -noelec (no electrostatics; default is to use electrostatics to score poses) - These should speed up the calculations
+
+   # Output files:
+   # -scratch_scores.dat
+   # -scratch_parameters.dat
+   ```
+
+Analysing ZDOCK and FTDOCK solutions:
+
+1) Create pdb files from ZDOCK docking output\
+   ZDOCK output file (ref_zdock.out) contains 2000 docking solutions, this can be reduced using:
+   ```bash
+   head -n 14 ref_zdock.out > ref_zdock_10.out  # top 10 docking solutions
+   # the first 4 lines do not contain solutions
+
+   create.pl ref_zdock_10.out
+
+   # change the format
+   for i in {1..10}; do
+   arrange.pl complex.$i complex.$i.pdb
+   done
+   ```
+2) Create pdb files from FTDock docking output\
+   ```bash
+   # Top 10 docking solutions
+   build -in ref.ftdock -b1 1 -b2 10
+   ```
+3) Visualise using Chimera
+
+PatchDock for rigid body docking:
+
+1) Prepare pdb files
+2) Create a parameter file
+   ```bash
+   buildParams.pl antibody.pdb antigen.pdb 4.0 AA
+
+   # AA  - antigen-antibody complex
+   # 4.0 - RMSD cut-off
+   ```
+3) Perform the docking
+   ```
+   patch_dock.Linux params.txt out_file1
+   ```
+4) Generate top 10 docking solutions
+   ```
+   transOutput.pl out_file1 1 10
+   ```
+5) visualise in Chimera
+
+
+   
+
    
    
    
