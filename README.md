@@ -413,6 +413,54 @@ Refinement of docking poses using FireDock:
    ```
 6) Visualise in Chimera
 
+#### 6.3 Data-driven Docking
+Data-driven or biased docking allows us to include information regarding the binding site. This information may come, for example, from studies of mutations that affect PPIs. Data-drive docking can be perforemed in PatchDock and pyDock.
+
+PyDock biased docking:
+
+1) Include restrains in the .ini file
+   ```
+   [receptor]
+    pdb = prot.pdb
+    mol = A
+    newmol = A
+    restr = A.Hid.147,A.Arg.36
+
+   [ligand]
+    pdb = ligand.pdb
+    mol = A
+    newmol = B
+    restr = B.Phe.52
+   ```
+2) Include distance restrains using pyDockRST
+   ```bash
+   pyDock3 T26 dockrst > dockrst.log
+
+   # Takes a few minutes
+
+   # Output:
+   # -T26.eneRST
+   # T26.rst
+   ```
+3) Visualise in Chimera
+
+PatchDock biased docking:
+
+1) Prepare two restraints files for receptor and ligand (s1.txt and s2.txt) as such
+   ```
+   32 A
+   64 A
+   221 A
+   ```
+   *The second column is the chain ID*
+2) Generate parameters file
+3) Modify the paramters file
+   *Un-comment the relevant lines eg. receptorActiveSite and ligandActiveSite and add the created filenames*
+4) Run PatchDock
+5) Generate top 10 docking poses
+6) Visulaise in Chimera
+   
+
 
    
 
