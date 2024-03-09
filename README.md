@@ -200,6 +200,8 @@ To understand why peaks of energy occur in the model, we must first analyse the 
    zscore * z-results
    ```
 
+<hr>
+
 ### 5. Threading
 Threading is an approach for *ab initio* protein structure prediction. Due to the large computational cost of threading, this approach may not be feasible for most personal machines. The programme THREADER can be used for this method.\
 Threader input can be either the protein sequence or its secondary structure. To run threader with secondary structure we need the .horitz file, which can be generated using Psi-pred (as seen in section 4.2).\
@@ -228,6 +230,8 @@ Other online server-based programmes include PHYRE, iTASSER, and MODLINK, howeve
    modpy.sh python modeling5_Threader.py > modeling_threader.log
    ```
 6) Analyse using Prosa
+
+<hr>
    
 
 ### 6. Docking
