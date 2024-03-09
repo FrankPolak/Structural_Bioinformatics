@@ -106,7 +106,7 @@ execute session1.cmd
 ```
 *The following cmd files have been obtained form the Prosa manual, see the [manual](prosa/Manual_prosa2003.pdf)*
 
-**session1.cmd:** Read PDB Files and Calculate and Visualise the Energies\
+**session1.cmd:** Read PDB Files and Calculate and Visualise the Energies
 ```
 read pdb pdb_file.ent obj1  # obj1 is the object name
 winsize obj1 50  # smooth out the graph by taking the average in a window size of 50 residues
@@ -125,17 +125,17 @@ export plot myplot  # creates a myplot.ps file
 ps2pdf myplot.ps    # converts ps file to a pdf graph
 ```
 **session2.cmd:** Compare Energies\
-**session4a.cmd:** Shift Graph to Compare Sequences of Different Lengths\
+**session4a.cmd:** Shift Graph to Compare Sequences of Different Lengths
 ```
 shift obj1 3  # shifts obj1 by 3 residues
 ```
-**session4b.cmd:** Calculate Z-Scores\
+**session4b.cmd:** Calculate Z-Scores
 ```
 zscore obj1 z-results  # creates a z-results.slp file
 ```
 Z-scores relate to the protein sequence length as such:\
 ![Prosa Z-Score](prosa/Prosa-z-score.png)\
-**session5.cmd:** Use Cα and Cβ Potentials\
+**session5.cmd:** Use Cα and Cβ Potentials
 ```
 # Load Potentials:
 pair potential $PROSA_BASE/pII3.0.pair-cb pcb
@@ -148,7 +148,7 @@ use potential aat pca sca pcb scb
 use potential spa pca sca pcb scb
 ```
 **session6.cmd:** Use Only Cα Potentials\
-**session7.cmd:** Analyse Mutant Structures without Generating New Models\
+**session7.cmd:** Analyse Mutant Structures without Generating New Models
 ```
 # Substitute amino acids:
 mutate sequence wt 46 P mutant1
@@ -283,7 +283,7 @@ Analysing ZDOCK and FTDOCK solutions:
    arrange.pl complex.$i complex.$i.pdb
    done
    ```
-2) Create pdb files from FTDock docking output\
+2) Create pdb files from FTDock docking output
    ```bash
    # Top 10 docking solutions
    build -in ref.ftdock -b1 1 -b2 10
