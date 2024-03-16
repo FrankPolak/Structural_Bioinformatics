@@ -34,7 +34,7 @@ The frist step is to create a model by comparing the target sequence to the stru
 How to model a protein complex (i.e., a protein with more than one chain).
 
 1) Modify the PIR file\
-   (alignment.pir) Place a "\" at the end of a chain and inculde start and end of each chain in the first line as such:
+   (alignment.pir) Place a "/" at the end of a chain and inculde start and end of each chain in the first line as such:
    ```
    >P1;1mee
     structureX:1mee:  1 :A:401  :C:  : : -1.00 :-1.00
